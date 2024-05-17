@@ -52,6 +52,7 @@ a {
   margin-left: auto;
   margin-right: auto;
 }
+
 header {
   position: fixed;
   top: 0;
@@ -157,16 +158,17 @@ header {
 }
 
 .img-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.main-img {
-  width: 1800px;
+  max-width: 1440px;
+  height: 600px;
+  margin: 0 auto;
+  background-image: url("../images/main-img.png");
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: cover;
 }
 
 .footer {
+  margin-top: 20px;
   padding-top: 100px;
   padding-bottom: 100px;
   background-color: #323232;
