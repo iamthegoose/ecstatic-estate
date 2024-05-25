@@ -270,12 +270,13 @@ header {
   border-radius: 50%;
   fill: var(--light-txt-cl);
   transition-property: background-color;
-  transition-duration: var(--time);
-  transition-timing-function: var(--time-distribution-function);
+
+  transition: 0.3s;
 }
+
 .footer-social-link:hover,
 .footer-social-link:focus {
-  background-color: #31d0aa;
+  background-color: #3279a8;
 }
 .footer-form {
   display: flex;
@@ -333,4 +334,20 @@ header {
 .footer-form-btn:focus {
   background-color: #ddd0c8;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+}
+
+.register-section {
+  margin-top: 200px;
+}
+
+.register-form {
+  border: 1px solid black;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  padding: 10px;
+
+  width: 250px;
 }
