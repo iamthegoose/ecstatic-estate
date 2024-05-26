@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "back"
+version = "0.1.0"
+description = ""
+authors = ["Oleksandr Nychyk <nychyk.oleksandr@lll.kpi.ua>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.111.0"
+redis = "^5.0.4"
+pydantic-settings = "^2.2.1"
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.4.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
