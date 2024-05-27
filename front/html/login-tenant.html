@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Header</title>
+    <link rel="stylesheet" href="../styles/tenant-styles.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&family=Roboto+Mono:wght@100..700&display=swap");
+    </style>
+  </head>
+  <body>
+    <header id="header" class="top">
+      <a href="../index.html">
+        <img
+          class="logo-black"
+          src="../images/logo-black.png"
+          alt="Black Logo"
+          height="75px"
+      /></a>
+      <nav class="menu">
+        <ul>
+          <li><a href="#">Орендувати</a></li>
+          <li><a href="#">Здати в оренду</a></li>
+          <li><a href="#">Підтримка</a></li>
+          <li class="language-switcher">
+            <a href="#" id="language-toggle">
+              <img
+                src="../images/ukraine-flag-circular.svg"
+                alt=""
+                height="20px"
+              />
+            </a>
+            <div class="language-options">
+              <a href="#" class="language-option"
+                ><img
+                  src="../images/ukraine-flag-circular.svg"
+                  alt=""
+                  height="20px"
+              /></a>
+              <a href="#" class="language-option"
+                ><img src="../images/uk-flag-circular.svg" alt="" height="20px"
+              /></a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <div class="content">
+      <h2 align="center">Увійдіть або зареєструйтесь!</h3>
+      <div class="login-registration-container">
+        <div class="login-form">
+          <h2>Увійдіть</h2>
+          <input type="text" placeholder="Електронна пошта" />
+          <input type="password" placeholder="Пароль" />
+          <button>Увійти</button>
+          <p>Ще не заареєструвались? Зробіть це <a href="./registration.html">тут</a></p>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <p class="all-rights">2023. Всі права захищені</p>
+    </footer>
+    <script src="../scripts/script.js"></script>
+  </body>
+</html>
