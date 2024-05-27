@@ -14,10 +14,8 @@ try:
         port=settings.DB_PORT
     )
 
-    # Встановлення кодування клієнта
     connection.set_client_encoding('UTF8')
 
-    # Створення курсору
     cursor = connection.cursor()
 
 
