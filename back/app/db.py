@@ -20,13 +20,15 @@ try:
 
     cursor.execute("SHOW client_encoding;")
     client_encoding = cursor.fetchone()
-    print(f"Кодування клієнта встановлено на - {client_encoding[0]}")
 
     cursor.execute("SELECT version();")
 
     record = cursor.fetchone()
-    print(f"Ви підключилися до - {record[0]}\n")
+    print(f"connected to  {record[0]}\n")
 
+    print(f"coding -  {client_encoding[0]}\n")
+
+    print(f"disconnected from {record[0]}")
     cursor.close()
     connection.close()
 except (psycopg2.Error) as error:
