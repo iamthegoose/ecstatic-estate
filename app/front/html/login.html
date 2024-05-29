@@ -1,0 +1,22 @@
+  {% extends "base.html" %}
+  {% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', path='styles/tenant-styles.css')}}" />
+  {% endblock head%}
+   
+  {% block body %}
+    <div class="content">
+      <h2 align="center">Увійдіть або зареєструйтесь!</h3>
+      <div class="login-registration-container">
+        <div class="login-form">
+          <form action="/user/signin" method="post">
+            <h2>Увійдіть</h2>
+            <input type="text" placeholder="Електронна пошта" name="email"/>
+            <input type="password" placeholder="Пароль" name="password"/>
+            <button>Увійти</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <p>Ще не зареєструвались? Зробіть це <a href="/signup">тут</a></p>
+
+   {% endblock body %}
