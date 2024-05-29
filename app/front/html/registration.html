@@ -1,0 +1,46 @@
+ {% extends "base.html" %}
+   
+  {% block body %}
+  <body>
+    <section class="register-section">
+      <div class="container">
+        <h4>Зареєструйтесь</h4>
+        <form
+          action="/user/signup"
+          method="post"
+          class="register-form"
+        >
+          <input
+            type="text"
+            placeholder="Імʼя"
+            name="name"
+            class="register-input"
+          />
+          <input
+            type="text"
+            placeholder="Прізвище"
+            name="surname"
+            class="register-input"
+          />
+          <input
+            type="text"
+            placeholder="Пошта"
+            name="email"
+            class="register-input"
+          />
+          <input
+            type="password"
+            placeholder="Пароль"
+            name="password"
+            class="register-input"
+          />
+          <input
+            type="password"
+            placeholder="Підтвердити пароль"
+            class="register-input"
+          />
+          <button class="register-button">Зареєструйтесь</button>
+        </form>
+      </div>
+    </section>
+ {% endblock body %}
