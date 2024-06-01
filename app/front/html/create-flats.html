@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block head %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', path='styles/create-flats-styles.css')}}"
+/>
+{% endblock head%} {% block body %}
+<section class="create-flats-section">
+  <div class="container">
+    <form action="" class="create-flats-form">
+      <input
+        type="text"
+        class="create-flats-input"
+        name="name"
+        placeholder="Назва"
+        required
+      />
+      <input
+        type="text"
+        class="create-flats-input"
+        name="location"
+        placeholder="Розташування"
+        required
+      />
+
+      <button class="create-flats-btn">Здати в оренду</button>
+    </form>
+  </div>
+</section>
+{% endblock body %}

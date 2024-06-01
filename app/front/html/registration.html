@@ -1,46 +1,90 @@
- {% extends "base.html" %}
-   
-  {% block body %}
-  <body>
-    <section class="register-section">
-      <div class="container">
-        <h4>Зареєструйтесь</h4>
-        <form
-          action="/user/signup"
-          method="post"
-          class="register-form"
-        >
-          <input
-            type="text"
-            placeholder="Імʼя"
-            name="name"
-            class="register-input"
-          />
-          <input
-            type="text"
-            placeholder="Прізвище"
-            name="surname"
-            class="register-input"
-          />
-          <input
-            type="text"
-            placeholder="Пошта"
-            name="email"
-            class="register-input"
-          />
-          <input
-            type="password"
-            placeholder="Пароль"
-            name="password"
-            class="register-input"
-          />
-          <input
-            type="password"
-            placeholder="Підтвердити пароль"
-            class="register-input"
-          />
-          <button class="register-button">Зареєструйтесь</button>
-        </form>
-      </div>
-    </section>
- {% endblock body %}
+{% extends "base.html" %} {% block head %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', path='styles/register-styles.css')}}"
+/>
+{% endblock head%} {% block body %}
+<section class="register-section">
+  <div class="container">
+    <h4 class="register-title">Зареєструйтесь</h4>
+    <form action="/user/signup" class="register-form" method="post">
+      <input
+        type="text"
+        placeholder="Імʼя"
+        class="register-input"
+        name="name"
+        id="name"
+      />
+      <input
+        type="text"
+        placeholder="Прізвище"
+        class="register-input"
+        name="surname"
+        id="surname"
+      />
+      <input
+        type="text"
+        placeholder="Пошта"
+        class="register-input"
+        name="email"
+        id="email"
+      />
+      <input
+        type="password"
+        placeholder="Пароль"
+        class="register-input"
+        name="password"
+        id="password"
+      />
+
+      {% if message %}
+      <div><p>{{ message }}</p></div>
+      {% endif %}
+      <button class="register-btn">Зареєструйтесь</button>
+    </form>
+    <p class="register-txt">
+      Вже зареєстровані?
+      <a href="/login">Увійти</a>
+    </p>
+  </div>
+</section>
+<script>
+  document
+    .querySelector(".register-form")
+    .addEventListener("submit", async function (event) {
+      event.preventDefault(); // Зупиняємо відправку форми
+
+      // Отримуємо значення з полів форми
+      const formData = {
+        name: document.getElementById("name").value,
+        surname: document.getElementById("surname").value,
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value,
+      };
+      console.log(formData)
+      // Відправляємо дані у форматі JSON
+      try {
+        const response = await fetch("/user/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // Перенаправлення на іншу сторінку з токеном
+          window.location.href = `/success?token=${data.token}`;
+        } else {
+          // Обробка помилки, якщо реєстрація не вдалася
+          alert(data.message);
+        }
+      } catch (error) {
+        console.error("Помилка:", error);
+      }
+    });
+</script>
+
+{% endblock body %}

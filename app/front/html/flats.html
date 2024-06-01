@@ -1,0 +1,68 @@
+{% extends "base.html" %} {% block head %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', path='styles/flats-styles.css')}}"
+/>
+{% endblock head%} {% block body %}
+
+<section class="filter-section">
+  <div class="container">
+    <div class="filter">
+      <form action="" class="filter-form">
+        <label>
+          <p class="label-txt">Загальна площа</p>
+          <div class="input-group">
+            <input type="text" placeholder="від" class="input-field" />
+            <input type="text" placeholder="до" class="input-field" />
+          </div>
+        </label>
+
+        <label>
+          <p class="label-txt">Ціна</p>
+          <div class="input-group">
+            <input type="text" placeholder="від" class="input-field" />
+            <input type="text" placeholder="до" class="input-field" />
+          </div>
+        </label>
+
+        <label for="">
+          <p class="label-txt">Кількість кімнат</p>
+          <select class="select-form">
+            <option value="">1</option>
+            <option value="">2</option>
+            <option value="">3</option>
+            <option value="">4</option>
+            <option value="">Більше</option>
+          </select>
+        </label>
+
+        <button class="submit-filter-btn">Застосувати</button>
+      </form>
+    </div>
+    <hr />
+  </div>
+
+  <div class="container">
+    <ul class="list-flats">
+      <li class="flats-item">
+        <h4 class="flats-item-title">Квартира 1</h4>
+        <img src="" alt="" />
+        <p class="flats-item-text">опис квартира 1</p>
+        <p class="flats-item-text">заг інфа</p>
+      </li>
+      <li class="flats-item">
+        <h4 class="flats-item-title">Квартира 2</h4>
+        <img src="" alt="" />
+        <p class="flats-item-text">опис квартира 2</p>
+        <p class="flats-item-text">заг інфа</p>
+      </li>
+      <li class="flats-item">
+        <h4 class="flats-item-title">Квартира 3</h4>
+        <img src="" alt="" />
+        <p class="flats-item-text">опис квартира 3</p>
+        <p class="flats-item-text">заг інфа</p>
+      </li>
+    </ul>
+  </div>
+</section>
+{% endblock body %}

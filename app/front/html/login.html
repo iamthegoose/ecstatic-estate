@@ -1,22 +1,77 @@
-  {% extends "base.html" %}
-  {% block head %}
-    <link rel="stylesheet" href="{{ url_for('static', path='styles/tenant-styles.css')}}" />
-  {% endblock head%}
-   
-  {% block body %}
-    <div class="content">
-      <h2 align="center">Увійдіть або зареєструйтесь!</h3>
-      <div class="login-registration-container">
-        <div class="login-form">
-          <form action="/user/signin" method="post">
-            <h2>Увійдіть</h2>
-            <input type="text" placeholder="Електронна пошта" name="email"/>
-            <input type="password" placeholder="Пароль" name="password"/>
-            <button>Увійти</button>
-          </form>
-        </div>
-      </div>
+{% extends "base.html" %} {% block head %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', path='styles/login-styles.css')}}"
+/>
+{% endblock head%} {% block body %}
+<section class="login-section">
+  <div class="container">
+    <div class="login-box">
+      <form action="/user/signin" class="login-form" method="post">
+        <h2>Увійдіть</h2>
+        <input
+          type="text"
+          class="login-input"
+          placeholder="Електронна пошта"
+          name="email"
+          id="email"
+          required
+        />
+        <input
+          type="password"
+          class="login-input"
+          placeholder="Пароль"
+          name="password"
+          id="password"
+          required
+        />
+        <button class="login-btn">Увійти</button>
+        <p>
+          Ще не зареєструвались? Зробіть це
+          <a href="/signup">тут</a>!
+        </p>
+      </form>
+      {% if message %}
+      <div><p>{{ message }}</p></div>
+      {% endif %}
     </div>
-    <p>Ще не зареєструвались? Зробіть це <a href="/signup">тут</a></p>
+  </div>
+</section>
+<script>
+  document
+    .querySelector(".login-form")
+    .addEventListener("submit", async function (event) {
+      event.preventDefault(); // Зупиняємо відправку форми
 
-   {% endblock body %}
+      // Отримуємо значення з полів форми
+      const formData = {
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value,
+      };
+      console.log(formData);
+      // Відправляємо дані у форматі JSON
+      try {
+        const response = await fetch("/user/signin", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // Перенаправлення на іншу сторінку з токеном
+          window.location.href = `/success?token=${data.token}`;
+        } else {
+          // Обробка помилки, якщо вхід не вдався
+          alert(data.message);
+        }
+      } catch (error) {
+        console.error("Помилка:", error);
+      }
+    });
+</script>
+
+{% endblock body %}

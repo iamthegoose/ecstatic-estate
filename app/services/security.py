@@ -3,6 +3,8 @@ from fastapi.security import OAuth2PasswordBearer
 from jose import jwt
 from fastapi import Depends, Request
 from app.settings import settings
+from app.repositoryuser import UserRepository
+from app.services.connection import SessionFactory
 
 from app.services.models.user import User
 
@@ -16,13 +18,18 @@ COOKIE_NAME = "Authorization"
 # create Token
 
 
-def create_access_token(user):
+def create_access_token(session, user_email: str):
     try:
-        payload = {
-            "email": user.email,
-            "role": user.role.value,
-        }
-        return jwt.encode(payload, key=settings.JWT_SECRET.get_secret_value(), algorithm=settings.ALGORITHM.get_secret_value())
+        with SessionFactory() as sess:
+            userRepository = UserRepository(sess)
+            user = userRepository.get_user_by_email(user_email)
+            payload = {
+                "email": user.email,
+                "name": user.name,
+                "surname": user.surname,
+                "password": user.password
+            }
+            return jwt.encode(payload, key=settings.JWT_SECRET.get_secret_value(), algorithm=settings.ALGORITHM.get_secret_value())
     except Exception as ex:
         print(str(ex))
         raise ex

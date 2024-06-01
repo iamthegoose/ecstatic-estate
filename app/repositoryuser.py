@@ -1,6 +1,7 @@
 from typing import Dict, Any
 from app.services.models.user import User
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import SQLAlchemyError
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
@@ -14,9 +15,12 @@ class UserRepository:
         try:
             self.sess.add(signup)
             self.sess.commit()
-        except Exception as e:
+        except SQLAlchemyError as e:
             logging.error(f"Error creating user: {e}")
+            self.sess.rollback()
             return False
+        finally:
+            self.sess.close()
         return True
 
     def get_user(self):

@@ -22,10 +22,10 @@
         <nav class="menu">
           <ul class="menu-list">
             <li class="menu-item">
-              <a class="menu-item-link" href="#">Орендувати</a>
+              <a class="menu-item-link" href="/rent">Орендувати</a>
             </li>
             <li class="menu-item">
-              <a class="menu-item-link" href="#">Здати в оренду</a>
+              <a class="menu-item-link" href="/create-flats">Здати в оренду</a>
             </li>
             <li class="menu-item">
               <a class="menu-item-link" href="#">Підтримка</a>
@@ -103,7 +103,7 @@
               <a class="footer-social-link" href="">
                 <svg class="form-icon-check" width="24" height="24">
                   <use
-                  href="{{ url_for('static', path='images/icons/socials-icons.svg#twitter')}}"
+                    href="{{ url_for('static', path='images/icons/socials-icons.svg#twitter')}}"
                   ></use>
                 </svg>
               </a>
@@ -112,7 +112,7 @@
               <a class="footer-social-link" href="">
                 <svg class="form-icon-check" width="24" height="24">
                   <use
-                  href="{{ url_for('static', path='images/icons/socials-icons.svg#facebook')}}"
+                    href="{{ url_for('static', path='images/icons/socials-icons.svg#facebook')}}"
                   ></use>
                 </svg>
               </a>
@@ -121,7 +121,7 @@
               <a class="footer-social-link" href="">
                 <svg class="form-icon-check" width="24" height="24">
                   <use
-                  href="{{ url_for('static', path='images/icons/socials-icons.svg#linkedin')}}"
+                    href="{{ url_for('static', path='images/icons/socials-icons.svg#linkedin')}}"
                   ></use>
                 </svg>
               </a>
@@ -142,7 +142,9 @@
             <button class="footer-form-btn" type="submit">
               Subscribe
               <svg class="footer-form-btn-icon" width="24" height="20">
-                <use href="{{ url_for('static', path='images/icons/send.svg')}}"></use>
+                <use
+                  href="{{ url_for('static', path='images/icons/send.svg')}}"
+                ></use>
               </svg>
             </button>
           </form>
