@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>registration</title>
     <link rel="stylesheet" href="../styles/main-styles.css" />
+    <link rel="stylesheet" href="../styles/register-styles.css" />
   </head>
   <body>
     <header id="header" class="top">
@@ -54,18 +55,39 @@
 
     <section class="register-section">
       <div class="container">
-        <h4>Зареєструйтесь</h4>
+        <h4 class="register-title">Зареєструйтесь</h4>
         <form action="" class="register-form">
-          <input type="text" placeholder="Імʼя" class="register-input" />
-          <input type="text" placeholder="Пошта" class="register-input" />
-          <input type="text" placeholder="Пароль" class="register-input" />
           <input
             type="text"
-            placeholder="Підтвердити пароль"
+            placeholder="Імʼя"
             class="register-input"
+            name="name"
           />
-          <button class="register-button">Зареєструйтесь</button>
+          <input
+            type="text"
+            placeholder="Прізвище"
+            class="register-input"
+            name="surname"
+          />
+          <input
+            type="text"
+            placeholder="Пошта"
+            class="register-input"
+            name="email"
+          />
+          <input
+            type="text"
+            placeholder="Пароль"
+            class="register-input"
+            name="password"
+          />
+
+          <button class="register-btn">Зареєструйтесь</button>
         </form>
+        <p class="register-txt">
+          Вже заареєстровані?
+          <a href="./login.html">Увійти</a>
+        </p>
       </div>
     </section>
 

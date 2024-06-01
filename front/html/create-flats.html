@@ -3,28 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ecstatic Estate</title>
-    <link rel="stylesheet" href="styles/main-styles.css" />
+    <link rel="stylesheet" href="../styles/main-styles.css" />
+    <link rel="stylesheet" href="../styles/create-flats-styles.css" />
+    <title>Document</title>
   </head>
   <body>
     <header id="header" class="top">
       <div class="container head">
-        <a href="index.html">
+        <a href="../index.html">
           <img
             class="logo-black"
-            src="images/logo.png"
+            src="../images/logo.png"
             alt="Logo"
             height="50px"
         /></a>
         <nav class="menu">
           <ul class="menu-list">
             <li class="menu-item">
-              <a class="menu-item-link" href="./html/flats.html">Орендувати</a>
+              <a class="menu-item-link" href="../html/flats.html">Орендувати</a>
             </li>
             <li class="menu-item">
-              <a class="menu-item-link" href="./html/create-flats.html"
-                >Здати в оренду</a
-              >
+              <a class="menu-item-link" href="#">Здати в оренду</a>
             </li>
             <li class="menu-item">
               <a class="menu-item-link" href="#">Підтримка</a>
@@ -32,7 +31,7 @@
             <li class="language-switcher menu-item">
               <a href="#" id="language-toggle">
                 <img
-                  src="images/ukraine-flag-circular.svg"
+                  src="../images/ukraine-flag-circular.svg"
                   alt=""
                   height="20px"
                 />
@@ -40,12 +39,15 @@
               <div class="language-options">
                 <a href="#" class="language-option"
                   ><img
-                    src="images/ukraine-flag-circular.svg"
+                    src="../images/ukraine-flag-circular.svg"
                     alt=""
                     height="20px"
                 /></a>
                 <a href="#" class="language-option"
-                  ><img src="images/uk-flag-circular.svg" alt="" height="20px"
+                  ><img
+                    src="../images/uk-flag-circular.svg"
+                    alt=""
+                    height="20px"
                 /></a>
               </div>
             </li>
@@ -54,25 +56,27 @@
       </div>
     </header>
 
-    <section class="hero">
-      <div class="">
-        <div class="main-title">
-          <p class="rent-now-text">
-            Живіть в <span class="unical-text">унікальних</span> місцях
-          </p>
-          <form action="./html/login.html">
-            <input
-              type="submit"
-              value="КАТАЛОГ"
-              class="rent-now-btn"
-              type="button"
-            />
-          </form>
-        </div>
+    <section class="create-flats-section">
+      <div class="container">
+        <form action="" class="create-flats-form">
+          <input
+            type="text"
+            class="create-flats-input"
+            name="name"
+            placeholder="Назва"
+            required
+          />
+          <input
+            type="text"
+            class="create-flats-input"
+            name="location"
+            placeholder="Розташування"
+            required
+          />
+
+          <button class="create-flats-btn">Здати в оренду</button>
+        </form>
       </div>
-    </section>
-    <section class="img-content">
-      <div class="container"></div>
     </section>
 
     <footer class="footer">
@@ -90,28 +94,28 @@
             <li>
               <a class="footer-social-link" href="">
                 <svg class="form-icon-check" width="24" height="24">
-                  <use href="./images/icons/socials-icons.svg#instagram"></use>
+                  <use href="../images/icons/socials-icons.svg#instagram"></use>
                 </svg>
               </a>
             </li>
             <li>
               <a class="footer-social-link" href="">
                 <svg class="form-icon-check" width="24" height="24">
-                  <use href="./images/icons/socials-icons.svg#twitter"></use>
+                  <use href="../images/icons/socials-icons.svg#twitter"></use>
                 </svg>
               </a>
             </li>
             <li>
               <a class="footer-social-link" href="">
                 <svg class="form-icon-check" width="24" height="24">
-                  <use href="./images/icons/socials-icons.svg#facebook"></use>
+                  <use href="../images/icons/socials-icons.svg#facebook"></use>
                 </svg>
               </a>
             </li>
             <li>
               <a class="footer-social-link" href="">
                 <svg class="form-icon-check" width="24" height="24">
-                  <use href="./images/icons/socials-icons.svg#linkedin"></use>
+                  <use href="../images/icons/socials-icons.svg#linkedin"></use>
                 </svg>
               </a>
             </li>
@@ -131,14 +135,12 @@
             <button class="footer-form-btn" type="submit">
               Subscribe
               <svg class="footer-form-btn-icon" width="24" height="20">
-                <use href="./images/icons/send.svg#Send"></use>
+                <use href="../images/icons/send.svg#Send"></use>
               </svg>
             </button>
           </form>
         </div>
       </div>
     </footer>
-
-    <script src="scripts/script.js"></script>
   </body>
 </html>
