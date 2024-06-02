@@ -3,7 +3,11 @@
   rel="stylesheet"
   href="{{ url_for('static', path='styles/login-styles.css')}}"
 />
-{% endblock head%} {% block body %}
+{% endblock head%} {% if message %}
+<script>
+  alert(message);
+</script>
+{%endif%} {% block body %}
 <section class="login-section">
   <div class="container">
     <div class="login-box">

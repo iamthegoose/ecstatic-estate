@@ -13,7 +13,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 3000
 
 pwd_context = CryptContext(
     schemes=["bcrypt"], deprecated="auto")
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/user/signin")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 COOKIE_NAME = "Authorization"
 
 # create Token
@@ -47,7 +47,6 @@ def verify_token(token):
         user_id = payload.get("user_id")
         return user_id
     except Exception as ex:
-        print(str(ex))
         raise ex
 
 
@@ -83,3 +82,7 @@ def get_current_user_from_cookie(request: Request) -> User:
     if token:
         user = verify_token(token)
         return user
+
+
+async def get_current_user(token: str = Depends(oauth2_scheme)):
+    return token

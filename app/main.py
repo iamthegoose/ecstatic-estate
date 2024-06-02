@@ -1,15 +1,12 @@
-from fastapi import Query
-from fastapi import FastAPI, Depends, Form, Response, Request
+from fastapi import FastAPI, Depends, Request
 from fastapi.templating import Jinja2Templates
 import logging
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse, RedirectResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.exceptions import HTTPException
-from sqlalchemy.orm import Session
 from app.services.connection import SessionFactory
-
-from app.services.security import get_password_hash, verify_password, create_access_token, COOKIE_NAME, get_current_user_from_token
+from app.services.security import get_password_hash, verify_password, create_access_token, get_current_user_from_token, get_current_user
 
 # repository
 from app.repositoryuser import UserRepository
@@ -54,6 +51,36 @@ def login(request: Request):
 @app.get("/signup")
 def signup(request: Request):
     return templates.TemplateResponse("registration.html", {"request": request})
+
+
+@app.get("/profile-red")
+def profile_red(request: Request):
+    return templates.TemplateResponse("profile-red.html", {"request": request})
+
+
+# @app.get("/profile")
+# def get_profile(request: Request):
+#     try:
+#         current_user: User = get_current_user_from_token()
+#     except HTTPException:
+#         return templates.TemplateResponse("login.html", {"request": request, "message": "Error kfjmnerwkljf"})
+#     with SessionFactory() as sess:
+#         flatRepository = FlatRepository(sess)
+#         user_flats = flatRepository.get_flats_by_user_id(current_user.id)
+#     return templates.TemplateResponse("profile.html", {"request": request, "flats": user_flats})
+
+
+@app.get("/profile")
+def get_profile(request: Request, token: str = Depends(get_current_user)):
+    print(token)
+    if token:
+        current_user = get_current_user_from_token(token)
+        with SessionFactory() as sess:
+            flatRepository = FlatRepository(sess)
+            user_flats = flatRepository.get_flats_by_user_id(current_user.id)
+        return templates.TemplateResponse("profile.html", {"request": request, "flats": user_flats})
+    else:
+        return templates.TemplateResponse("login.html", {"request": request})
 
 
 @app.get("/rent")
@@ -154,7 +181,6 @@ def flats(request: Request, filters: FlatFilters):
         flats = flatRepository.get_all_flats(filters=filter_dict)
 
     return templates.TemplateResponse("flats.html", {"request": request, "flats": flats})
-
 
 
 logging.basicConfig(level="DEBUG")
