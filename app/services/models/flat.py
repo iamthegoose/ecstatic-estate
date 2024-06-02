@@ -1,6 +1,6 @@
 from app.services.models.base import Base
-from sqlalchemy.orm import Mapped, mapped_column
-from app.services.types.schema import Roles
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import ForeignKey
 
 
 class Flat(Base):
@@ -13,4 +13,7 @@ class Flat(Base):
     area: Mapped[int] = mapped_column(nullable=False)
     price: Mapped[int] = mapped_column(nullable=False)
     rooms: Mapped[int] = mapped_column(nullable=False)
-    
+    user_id: Mapped[int] = mapped_column(
+        ForeignKey("users.id"), nullable=False)
+
+    owner = relationship("User", back_populates="flats")

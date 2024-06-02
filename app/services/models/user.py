@@ -1,6 +1,7 @@
 from app.services.models.base import Base
 from sqlalchemy.orm import Mapped, mapped_column
 from app.services.types.schema import Roles
+from sqlalchemy.orm import relationship
 
 
 class User(Base):
@@ -12,4 +13,5 @@ class User(Base):
     surname: Mapped[str] = mapped_column(index=True, nullable=False)
     password: Mapped[str] = mapped_column(nullable=False)
     role: Mapped[Roles] = mapped_column(default=Roles.user)
-    
+
+    flats = relationship("Flat", back_populates="owner")

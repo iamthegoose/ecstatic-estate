@@ -23,6 +23,9 @@ class UserRepository:
             self.sess.close()
         return True
 
+    def get_user_by_id(self, user_id):
+        return self.sess.query(User).filter(User.id == user_id).first()
+
     def get_user(self):
         return self.sess.query(User).all()
 

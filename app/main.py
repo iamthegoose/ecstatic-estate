@@ -1,20 +1,25 @@
+from fastapi import Query
 from fastapi import FastAPI, Depends, Form, Response, Request
 from fastapi.templating import Jinja2Templates
 import logging
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, RedirectResponse, JSONResponse
+from fastapi.exceptions import HTTPException
 from sqlalchemy.orm import Session
 from app.services.connection import SessionFactory
 
-from app.services.security import get_password_hash, verify_password, create_access_token, COOKIE_NAME
+from app.services.security import get_password_hash, verify_password, create_access_token, COOKIE_NAME, get_current_user_from_token
 
 # repository
 from app.repositoryuser import UserRepository
+from app.repositoryflat import FlatRepository
 
 # types & models
 from app.services.models.user import User
-from app.services.models.requests import UserSigninRequest, UserSignupRequest
+from app.services.models.flat import Flat
+from app.services.types.flatfilters import FlatFilters
+from app.services.models.requests import UserSigninRequest, UserSignupRequest, FlatCreateRequest
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="app/front/static",
@@ -52,34 +57,20 @@ def signup(request: Request):
 
 
 @app.get("/rent")
-def signup(request: Request):
-    return templates.TemplateResponse("flats.html", {"request": request})
+def rent(request: Request):
+    with SessionFactory() as sess:
+        flatRepository = FlatRepository(sess)
+        flats = flatRepository.get_all_flats()
+    return templates.TemplateResponse("flats.html", {"request": request, "flats": flats})
 
 
 @app.get("/create-flats")
-def signup(request: Request):
+def create_flats(request: Request):
     return templates.TemplateResponse("create-flats.html", {"request": request})
-
-# @app.post("/user/signup")
-# def signup_user(request:Request, email: str = Form(None), name: str = Form(None), surname: str = Form(None), password: str = Form(None)):
-#     if not email or not password or not name or not surname:
-#         return templates.TemplateResponse("registration.html", {"request": request, "message": "Заповніть всі поля!"})
-#     with SessionFactory() as sess:
-#         userRepository = UserRepository(sess)
-#         db_user = userRepository.get_user_by_email(email)
-#         if db_user:
-#             return templates.TemplateResponse("registration.html", {"request": request, "message": "Користувач з такою поштою вже існує!"})
-
-#         signup = User(email=email, name=name, surname=surname, password=get_password_hash(password))
-#         success = userRepository.create_user(signup)
-#         return templates.TemplateResponse("registration.html", {"request": request, "message": "Користувач створений успішно"})
 
 
 @app.post("/user/signup")
 def signup_user(user_request: UserSignupRequest, request: Request):
-    if not user_request.email or not user_request.password or not user_request.name or not user_request.surname:
-        return templates.TemplateResponse("registration.html", {"request": request, "message": "Заповніть всі поля!"})
-
     with SessionFactory() as sess:
         userRepository = UserRepository(sess)
         db_user = userRepository.get_user_by_email(user_request.email)
@@ -95,13 +86,12 @@ def signup_user(user_request: UserSignupRequest, request: Request):
         )
         success = userRepository.create_user(signup)
 
-        # Генеруємо токен після успішного створення користувача
         token = create_access_token(sess, user_request.email)
 
-        return {"token": token, "message": "Користувач створений успішно"}
+        return templates.TemplateResponse("/success", {"request": request})
 
 
-@app.post("/user/signin", response_class=JSONResponse)
+@app.post("/user/signin")
 def signin_user(user_request: UserSigninRequest, request: Request):
     with SessionFactory() as sess:
         userRepository = UserRepository(sess)
@@ -111,7 +101,7 @@ def signin_user(user_request: UserSigninRequest, request: Request):
 
         if verify_password(user_request.password, db_user.password):
             token = create_access_token(sess, user_request.email)
-            return {"token": token, "message": "Успішний вхід"}
+            return JSONResponse(status_code=200, content={"message": "Успішний вхід"})
 
         return JSONResponse(status_code=400, content={"message": "Неправильний пароль!"})
 
@@ -119,6 +109,51 @@ def signin_user(user_request: UserSigninRequest, request: Request):
 @app.get("/success", response_class=HTMLResponse)
 def success_page(request: Request, token: str):
     return templates.TemplateResponse("index.html", {"request": request, "token": token})
+
+
+@app.post("/user/create-flat")
+def create_flat(flat_request: FlatCreateRequest, current_user: User = Depends(get_current_user_from_token)):
+    with SessionFactory() as sess:
+        flatRepository = FlatRepository(sess)
+        new_flat = Flat(
+            name=flat_request.name,
+            location=flat_request.location,
+            description=flat_request.description,
+            area=int(flat_request.area),
+            price=int(flat_request.price),
+            rooms=int(flat_request.rooms),
+            user_id=current_user.id
+        )
+        success = flatRepository.create_flat(new_flat)
+        if success:
+            return JSONResponse(status_code=201, content={"message": "Квартира створена успішно"})
+        else:
+            raise HTTPException(
+                status_code=500, detail="Помилка при створенні квартири")
+
+
+@app.post("/user/flats", response_class=HTMLResponse)
+def flats(request: Request, filters: FlatFilters):
+    filter_dict = {}
+
+    if filters.area_from is not None:
+        filter_dict["area_min"] = filters.area_from
+    if filters.area_to is not None:
+        filter_dict["area_max"] = filters.area_to
+
+    if filters.price_from is not None:
+        filter_dict["price_min"] = filters.price_from
+    if filters.price_to is not None:
+        filter_dict["price_max"] = filters.price_to
+
+    if filters.rooms is not None:
+        filter_dict["rooms"] = filters.rooms
+
+    with SessionFactory() as sess:
+        flatRepository = FlatRepository(sess)
+        flats = flatRepository.get_all_flats(filters=filter_dict)
+
+    return templates.TemplateResponse("flats.html", {"request": request, "flats": flats})
 
 
 logging.basicConfig(level="DEBUG")

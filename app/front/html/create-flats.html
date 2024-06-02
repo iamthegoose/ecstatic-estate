@@ -6,24 +6,91 @@
 {% endblock head%} {% block body %}
 <section class="create-flats-section">
   <div class="container">
-    <form action="" class="create-flats-form">
+    <form id="createFlatForm" class="create-flats-form">
       <input
         type="text"
-        class="create-flats-input"
+        id="name"
         name="name"
         placeholder="Назва"
+        class="create-flats-input"
         required
       />
       <input
         type="text"
-        class="create-flats-input"
+        id="location"
         name="location"
         placeholder="Розташування"
+        class="create-flats-input"
         required
       />
-
-      <button class="create-flats-btn">Здати в оренду</button>
+      <input
+        type="text"
+        id="description"
+        name="description"
+        placeholder="Опис"
+        class="create-flats-input"
+        required
+      />
+      <input
+        type="text"
+        id="area"
+        name="area"
+        placeholder="Площа"
+        class="create-flats-input"
+        required
+      />
+      <input
+        type="text"
+        id="price"
+        name="price"
+        class="create-flats-input"
+        placeholder="Ціна за місяць"
+        required
+      />
+      <input
+        type="text"
+        id="rooms"
+        name="rooms"
+        class="create-flats-input"
+        placeholder="Кількість кімнат"
+        required
+      />
+      <button id="submitBtn" class="create-flats-btn">Здати в оренду</button>
     </form>
   </div>
 </section>
+
+<script>
+  const createFlatForm = document.getElementById("createFlatForm");
+  createFlatForm.addEventListener("submit", handleSubmit);
+  function handleSubmit(e) {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    const formData = {
+      name: document.getElementById("name").value,
+      location: document.getElementById("location").value,
+      description: document.getElementById("description").value,
+      area: document.getElementById("area").value,
+      price: document.getElementById("price").value,
+      rooms: document.getElementById("rooms").value,
+    };
+    fetch("/user/create-flat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
+
+</script>
+
 {% endblock body %}
