@@ -7,7 +7,7 @@
 <section class="login-section">
   <div class="container">
     <div class="login-box">
-      <form action="/user/signin" class="login-form" method="post">
+      <form id="login-form" class="login-form" method="post">
         <h2>Увійдіть</h2>
         <input
           type="text"
@@ -26,14 +26,9 @@
           required
         />
         <button class="login-btn">Увійти</button>
-        <p>
-          Ще не зареєструвались? Зробіть це
-          <a href="/signup">тут</a>!
-        </p>
+        <p>Ще не зареєструвались? Зробіть це <a href="/signup">тут</a>!</p>
       </form>
-      {% if message %}
-      <div><p>{{ message }}</p></div>
-      {% endif %}
+      <div id="message-container"></div>
     </div>
   </div>
 </section>
@@ -47,7 +42,6 @@
         email: document.getElementById("email").value,
         password: document.getElementById("password").value,
       };
-      console.log(formData);
       try {
         const response = await fetch("/user/signin", {
           method: "POST",
@@ -56,19 +50,19 @@
           },
           body: JSON.stringify(formData),
         });
-
-        const data = await response.json();
-        const token = data.token;
-        localStorage.setItem('token', token);
         if (response.ok) {
+          const data = await response.json();
+          const token = data.token;
+          localStorage.setItem("token", token);
           window.location.href = `/success?token=${data.token}`;
         } else {
-          alert(data.message);
+          const errorMessage = await response.text();
+          alert(errorMessage);
         }
       } catch (error) {
-        console.error("Помилка:", error);
+        alert("Сталася помилка під час входу.");
+        console.error("Error:", error);
       }
     });
 </script>
-
 {% endblock body %}

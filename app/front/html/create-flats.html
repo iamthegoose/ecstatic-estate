@@ -63,6 +63,7 @@
 <script>
   const createFlatForm = document.getElementById("createFlatForm");
   createFlatForm.addEventListener("submit", handleSubmit);
+
   function handleSubmit(e) {
     e.preventDefault();
     const token = localStorage.getItem("token");
@@ -74,6 +75,7 @@
       price: document.getElementById("price").value,
       rooms: document.getElementById("rooms").value,
     };
+
     fetch("/user/create-flat", {
       method: "POST",
       headers: {
@@ -82,15 +84,23 @@
       },
       body: JSON.stringify(formData),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          return response.text().then((text) => {
+            throw new Error(text);
+          });
+        }
+      })
       .then((data) => {
-        console.log(data);
+        window.location.href = "/rent";
       })
       .catch((error) => {
+        alert(error.message);
         console.error("Error:", error);
       });
   }
-
 </script>
 
 {% endblock body %}

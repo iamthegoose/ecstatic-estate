@@ -24,7 +24,7 @@ def create_access_token(session, user_email: str):
         with SessionFactory() as sess:
             userRepository = UserRepository(sess)
             user = userRepository.get_user_by_email(user_email)
-            expiration_time = datetime.utcnow() + timedelta(weeks=2)  # Поточний час плюс 30 хвилин
+            expiration_time = datetime.utcnow() + timedelta(weeks=2)
             payload = {
                 "user_id": user.id,
                 "email": user.email,
@@ -32,7 +32,7 @@ def create_access_token(session, user_email: str):
                 "surname": user.surname,
                 "password": user.password
             }
-            token_payload = {**payload, "exp": expiration_time}  # Додавання часу закінчення до пейлоаду
+            token_payload = {**payload, "exp": expiration_time}
             return jwt.encode(token_payload, key=settings.JWT_SECRET.get_secret_value(), algorithm=settings.ALGORITHM.get_secret_value())
     except Exception as ex:
         print(str(ex))

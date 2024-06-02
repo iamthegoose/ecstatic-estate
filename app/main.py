@@ -88,7 +88,7 @@ def signup_user(user_request: UserSignupRequest, request: Request):
 
         token = create_access_token(sess, user_request.email)
 
-        return templates.TemplateResponse("/success", {"request": request})
+        return JSONResponse(status_code=201, content={"message": "Користувач створений успішно!", "token": token})
 
 
 @app.post("/user/signin")
@@ -101,7 +101,7 @@ def signin_user(user_request: UserSigninRequest, request: Request):
 
         if verify_password(user_request.password, db_user.password):
             token = create_access_token(sess, user_request.email)
-            return JSONResponse(status_code=200, content={"message": "Успішний вхід"})
+            return JSONResponse(status_code=200, content={"message": "Успішний вхід", "token": token})
 
         return JSONResponse(status_code=400, content={"message": "Неправильний пароль!"})
 
@@ -154,6 +154,7 @@ def flats(request: Request, filters: FlatFilters):
         flats = flatRepository.get_all_flats(filters=filter_dict)
 
     return templates.TemplateResponse("flats.html", {"request": request, "flats": flats})
+
 
 
 logging.basicConfig(level="DEBUG")
