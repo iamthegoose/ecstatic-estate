@@ -167,6 +167,10 @@ header {
   background-size: cover;
 }
 
+.section {
+  min-height: 600px;
+}
+
 .footer {
   margin-top: 20px;
   padding-top: 100px;
@@ -276,7 +280,7 @@ header {
 
 .footer-social-link:hover,
 .footer-social-link:focus {
-  background-color: #3279a8;
+  background-color: #524d4b;
 }
 .footer-form {
   display: flex;

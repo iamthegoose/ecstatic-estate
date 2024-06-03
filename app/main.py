@@ -58,18 +58,6 @@ def profile_red(request: Request):
     return templates.TemplateResponse("profile-red.html", {"request": request})
 
 
-# @app.get("/profile")
-# def get_profile(request: Request):
-#     try:
-#         current_user: User = get_current_user_from_token()
-#     except HTTPException:
-#         return templates.TemplateResponse("login.html", {"request": request, "message": "Error kfjmnerwkljf"})
-#     with SessionFactory() as sess:
-#         flatRepository = FlatRepository(sess)
-#         user_flats = flatRepository.get_flats_by_user_id(current_user.id)
-#     return templates.TemplateResponse("profile.html", {"request": request, "flats": user_flats})
-
-
 @app.get("/profile")
 def get_profile(request: Request, token: str = Depends(get_current_user)):
     print(token)
@@ -116,6 +104,7 @@ def signup_user(user_request: UserSignupRequest, request: Request):
         token = create_access_token(sess, user_request.email)
 
         return JSONResponse(status_code=201, content={"message": "Користувач створений успішно!", "token": token})
+
 
 
 @app.post("/user/signin")

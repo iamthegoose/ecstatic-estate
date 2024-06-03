@@ -6,45 +6,41 @@
 {% endblock head%} {% block body %}
 <section class="register-section">
   <div class="container">
-    <h4 class="register-title">Зареєструйтесь</h4>
-    <form id="register-form" class="register-form" method="post">
-      <input
-        type="text"
-        placeholder="Імʼя"
-        class="register-input"
-        name="name"
-        id="name"
-        required
-      />
-      <input
-        type="text"
-        placeholder="Прізвище"
-        class="register-input"
-        name="surname"
-        id="surname"
-        required
-      />
-      <input
-        type="text"
-        placeholder="Пошта"
-        class="register-input"
-        name="email"
-        id="email"
-        required
-      />
-      <input
-        type="password"
-        placeholder="Пароль"
-        class="register-input"
-        name="password"
-        id="password"
-        required
-      />
+    <div class="box-register">
+      <form action="" class="register-form">
+        <h4 class="register-title">Зареєструйтесь</h4>
+        <input
+          type="text"
+          placeholder="Імʼя"
+          class="register-input"
+          name="name"
+        />
+        <input
+          type="text"
+          placeholder="Прізвище"
+          class="register-input"
+          name="surname"
+        />
+        <input
+          type="text"
+          placeholder="Пошта"
+          class="register-input"
+          name="email"
+        />
+        <input
+          type="text"
+          placeholder="Пароль"
+          class="register-input"
+          name="password"
+        />
 
-      <div id="message-container"></div>
-      <button class="register-btn">Зареєструйтесь</button>
-    </form>
-    <p class="register-txt">Вже зареєстровані? <a href="/login">Увійти</a></p>
+        <button class="register-btn">Зареєструйтесь</button>
+        <p class="register-txt">
+          Вже заареєстровані?
+          <a href="/login">Увійти</a>
+        </p>
+      </form>
+    </div>
   </div>
 </section>
 

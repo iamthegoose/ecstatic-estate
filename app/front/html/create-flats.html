@@ -4,61 +4,65 @@
   href="{{ url_for('static', path='styles/create-flats-styles.css')}}"
 />
 {% endblock head%} {% block body %}
-<section class="create-flats-section">
-  <div class="container">
-    <form id="createFlatForm" class="create-flats-form">
-      <input
-        type="text"
-        id="name"
-        name="name"
-        placeholder="Назва"
-        class="create-flats-input"
-        required
-      />
-      <input
-        type="text"
-        id="location"
-        name="location"
-        placeholder="Розташування"
-        class="create-flats-input"
-        required
-      />
-      <input
-        type="text"
-        id="description"
-        name="description"
-        placeholder="Опис"
-        class="create-flats-input"
-        required
-      />
-      <input
-        type="text"
-        id="area"
-        name="area"
-        placeholder="Площа"
-        class="create-flats-input"
-        required
-      />
-      <input
-        type="text"
-        id="price"
-        name="price"
-        class="create-flats-input"
-        placeholder="Ціна за місяць"
-        required
-      />
-      <input
-        type="text"
-        id="rooms"
-        name="rooms"
-        class="create-flats-input"
-        placeholder="Кількість кімнат"
-        required
-      />
-      <button id="submitBtn" class="create-flats-btn">Здати в оренду</button>
-    </form>
-  </div>
-</section>
+ <section class="create-flats-section section">
+      <div class="container">
+        <div class="box-create-flats">
+          <form id="createFlatForm" class="create-flats-form">
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Назва"
+              class="create-flats-input"
+              required
+            />
+            <input
+              type="text"
+              id="location"
+              name="location"
+              placeholder="Розташування"
+              class="create-flats-input"
+              required
+            />
+            <input
+              type="text"
+              id="description"
+              name="description"
+              placeholder="Опис"
+              class="create-flats-input"
+              required
+            />
+            <input
+              type="text"
+              id="area"
+              name="area"
+              placeholder="Площа"
+              class="create-flats-input"
+              required
+            />
+            <input
+              type="text"
+              id="price"
+              name="price"
+              class="create-flats-input"
+              placeholder="Ціна за місяць"
+              required
+            />
+            <input
+              type="text"
+              id="rooms"
+              name="rooms"
+              class="create-flats-input"
+              placeholder="Кількість кімнат"
+              required
+            />
+            <button id="submitBtn" class="create-flats-btn">
+              Здати в оренду
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
 
 <script>
   const createFlatForm = document.getElementById("createFlatForm");

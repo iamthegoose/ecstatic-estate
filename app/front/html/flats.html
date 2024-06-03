@@ -13,19 +13,23 @@
           <p class="label-txt">Загальна площа</p>
           <div class="input-group">
             <input
-              type="text"
-              placeholder="від"
-              class="input-field"
-              name="area_from"
-              id="area_from"
-            />
-            <input
-              type="text"
-              placeholder="до"
-              class="input-field"
-              name="area_to"
-              id="area_to"
-            />
+                  type="text"
+                  placeholder="від"
+                  class="input-field"
+                  name="area_from"
+                  id="area_from"
+                  inputmode="numeric"
+                  pattern="[0-9]*"
+                />
+                <input
+                  type="text"
+                  placeholder="до"
+                  class="input-field"
+                  name="area_to"
+                  id="area_to"
+                  inputmode="numeric"
+                  pattern="[0-9]*"
+                />
           </div>
         </label>
 
@@ -38,6 +42,8 @@
               class="input-field"
               name="price_from"
               id="price_from"
+              inputmode="numeric"
+              pattern="[0-9]*"
             />
             <input
               type="text"
@@ -45,6 +51,8 @@
               class="input-field"
               name="price_to"
               id="price_to"
+              inputmode="numeric"
+              pattern="[0-9]*"
             />
           </div>
         </label>
@@ -65,20 +73,30 @@
     </div>
     <hr />
   </div>
+  <section class="section">
   <div class="container">
     <div id="flats-container">
       <ul class="list-flats">
         {% for flat in flats %}
         <li class="flats-item">
           <h4 class="flats-item-title">{{ flat.name }}</h4>
-          <img src="{{ url_for('static', path='images/flat.jpg')}}" alt="" width="300px" height="150px"/>
-          <p class="flats-item-text">{{ flat.description }}</p>
-          <p class="flats-item-text">Площа: {{ flat.area }} кв. м.</p>
-          <p class="flats-item-text">Ціна: {{ flat.price }} ₴/місяць</p>
-          <p class="flats-item-text">Кількість кімнат: {{ flat.rooms }}</p>
+          <img
+            src="{{ url_for('static', path='images/flat.jpg')}}"
+            alt="Flat Image"
+            class="flats-item-image"
+          />
+          <div class="flats-item-content">
+            <p class="flats-item-text">{{ flat.description }}</p>
+            <p class="flats-item-text">Площа: {{ flat.area }} кв. м.</p>
+            <p class="flats-item-text">Ціна: {{ flat.price }} ₴/місяць</p>
+            <p class="flats-item-text">Кількість кімнат: {{ flat.rooms }}</p>
+          </div>
         </li>
+
         {% endfor %}
       </ul>
+    
+      </section>
     </div>
   </div>
 </section>
@@ -87,7 +105,6 @@
     .querySelector(".filter-form")
     .addEventListener("submit", async function (event) {
       event.preventDefault();
-
 
       const formData = {
         area_from: document.getElementById("area_from").value,
@@ -98,7 +115,6 @@
       };
 
       console.log(JSON.stringify(formData));
-
 
       try {
         const response = await fetch("/user/flats", {
@@ -111,16 +127,12 @@
 
         const html = await response.text();
 
-
         const flatsContainer = document.getElementById("flats-container");
-
 
         const tempDiv = document.createElement("div");
         tempDiv.innerHTML = html;
 
-
         const newFlatsList = tempDiv.querySelector(".list-flats");
-
 
         if (newFlatsList && flatsContainer) {
           flatsContainer.innerHTML = newFlatsList.outerHTML;

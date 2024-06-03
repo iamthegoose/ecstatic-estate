@@ -22,37 +22,18 @@
         <nav class="menu">
           <ul class="menu-list">
             <li class="menu-item">
-              <a class="menu-item-link" href="/rent">Орендувати</a>
+              <a class="menu-item-link menu-item-rent" href="/rent"
+                >Орендувати</a
+              >
             </li>
             <li class="menu-item">
-              <a class="menu-item-link" href="/create-flats">Здати в оренду</a>
+              <a
+                class="menu-item-link menu-item-create-rent"
+                href="/create-flats"
+                >Здати в оренду</a
+              >
             </li>
-            <li class="menu-item">
-              <a class="menu-item-link" href="/about">Про нас</a>
-            </li>
-            <li class="language-switcher menu-item">
-              <a href="#" id="language-toggle">
-                <img
-                  src="{{ url_for('static', path='images/ukraine-flag-circular.svg')}}"
-                  alt=""
-                  height="20px"
-                />
-              </a>
-              <div class="language-options">
-                <a href="#" class="language-option"
-                  ><img
-                    src="{{ url_for('static', path='images/ukraine-flag-circular.svg')}}"
-                    alt=""
-                    height="20px"
-                /></a>
-                <a href="#" class="language-option"
-                  ><img
-                    src="{{ url_for('static', path='images/uk-flag-circular.svg')}}"
-                    alt=""
-                    height="20px"
-                /></a>
-              </div>
-            </li>
+            
           </ul>
         </nav>
       </div>
@@ -63,7 +44,7 @@
           <p class="rent-now-text">
             Живіть в <span class="unical-text">унікальних</span> місцях
           </p>
-          <form action="/login">
+          <form action="/login" id="catalogueForm">
             <input
               type="submit"
               value="КАТАЛОГ"
